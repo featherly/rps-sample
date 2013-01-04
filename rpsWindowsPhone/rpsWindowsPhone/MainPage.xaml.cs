@@ -17,6 +17,9 @@ namespace rpsWindowsPhone
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        public string Basics { get { return basics; } }
+        private const string basics = "Choose your move using a button below. The computer will pick a move at the bottom.";
+
         // Constructor
         public MainPage()
         {
@@ -31,6 +34,12 @@ namespace rpsWindowsPhone
             if (playerCtrl == null) return;
 
             RpsEnum player = playerCtrl.RpsChosen;
+            if (player == RpsEnum.Undetermined)
+            {
+                console.Text = basics;
+                return;
+            }
+
             RpsEnum ai = (RpsEnum)rnd.Next(1, 4);
 
             AiRps.RpsChosen = ai;

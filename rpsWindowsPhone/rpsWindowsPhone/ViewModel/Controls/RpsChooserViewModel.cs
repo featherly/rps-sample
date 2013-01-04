@@ -119,6 +119,12 @@ namespace rpsWindowsPhone.ViewModel.Controls
                 }
                 RpsChosen = choice;
             }
+
+            //This assumes that all values are equal only when all values are false
+            else if (CheckedRock == CheckedPaper && CheckedPaper == CheckedScissors)
+            {
+                RpsChosen = RpsEnum.Undetermined;
+            }
         }
     }
 }
