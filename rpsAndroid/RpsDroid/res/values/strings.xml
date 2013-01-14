@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Rock-Paper-Scissors</string>
+    <string name="instructions">Pick to Play</string>
+    <string name="rock_button">Rock</string>
+    <string name="paper_button">Paper</string>
+    <string name="scissors_button">Scissors</string>
+    <string name="menu_settings">Settings</string>
+    <string name="opponent">Opponent pick</string>
+    <string name="result">Result</string>
+    <string name="user">User pick</string>
+
+</resources>

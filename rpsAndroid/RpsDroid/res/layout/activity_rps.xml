@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RpsActivity" >
+
+        <Button
+            android:id="@+id/button_rock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/instructions"
+            android:layout_marginLeft="17dp"
+            android:layout_marginTop="53dp"
+            android:layout_toLeftOf="@+id/button_paper"
+            android:text="@string/rock_button"
+            android:onClick="pickedRock" />
+
+        <Button
+            android:id="@+id/button_scissors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/button_paper"
+            android:layout_alignBottom="@+id/button_paper"
+            android:layout_toRightOf="@+id/instructions"
+            android:text="@string/scissors_button"
+            android:onClick="pickedScissors" />
+
+        <Button
+            android:id="@+id/button_paper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/button_rock"
+            android:layout_alignBottom="@+id/button_rock"
+            android:layout_alignLeft="@+id/instructions"
+            android:layout_alignRight="@+id/instructions"
+            android:text="@string/paper_button"
+            android:onClick="pickedPaper" />
+
+        <TextView
+            android:id="@+id/instructions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="63dp"
+            android:text="@string/instructions"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/opponent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="36dp"
+            android:text="@string/result"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/opponent"
+            android:layout_alignBottom="@+id/opponent"
+            android:layout_alignLeft="@+id/button_rock"
+            android:layout_marginLeft="22dp"
+            android:text="@string/user"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/opponent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/button_scissors"
+            android:layout_below="@+id/button_scissors"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="38dp"
+            android:text="@string/opponent"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>
