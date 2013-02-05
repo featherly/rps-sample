@@ -112,21 +112,26 @@ UpgradeLog*.XML
 #This is the git ignore file used in Duck Hunted
 
 #NOTE: this will cause your collaborators to re-import assets periodically
-Temp/*
-Library/*
-Build/*
+rpsUnity3D/Temp/*
+rpsUnity3D/Library/*
+rpsUnity3D/Build/*
+rpsUnity3D/ProjectSettings/*
+rpsUnity3D/rpsUnity3D_Data/*
+rpsUnity3D/*.sln
+rpsUnity3D/*.exe
+rpsUnity3D/*.apk
 #Un-ignore these specific files
-!Library/*.asset
-!Library/AssetImportState
-!Library/AssetVersioning.db
-!Library/BuildPlayer.prefs
-!Library/ScriptMapper
-!Library/assetservercachev3
-!Library/expandedItems
-!Library/guidmapper
-!Library/unity default resources
-!Library/unity editor resources
-!Library/metadata/
+!rpsUnity3D/Library/*.asset
+!rpsUnity3D/Library/AssetImportState
+!rpsUnity3D/Library/assetservercachev3
+!rpsUnity3D/Library/AssetVersioning.db
+!rpsUnity3D/Library/BuildPlayer.prefs
+!rpsUnity3D/Library/ScriptMapper
+!rpsUnity3D/Library/expandedItems
+!rpsUnity3D/Library/guidmapper
+!rpsUnity3D/Library/unity default resources
+!rpsUnity3D/Library/unity editor resources
+!rpsUnity3D/Library/metadata/
  
 #ignoring pidb, they are just code completion caching data according to:
 # http://stackoverflow.com/questions/1022111/what-are-monodevelops-pidb-files
