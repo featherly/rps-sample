@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 public class ExecuteChoice : MonoBehaviour
 {
@@ -11,24 +13,29 @@ public class ExecuteChoice : MonoBehaviour
     public Transform Paper;
     public Transform Scissors;
 
+    private Storage deviceStore = new Storage();
+    private Ai aiObject = new Ai();
     private string gameConsole;
+    private string gameHistory;
     private Transform player3D;
     private Transform ai3D;
+    private List<OutcomeEnum> gameOutcomes = new List<OutcomeEnum>();
 
     // Use this for initialization
     void Start()
     {
         Instance = this;
+        gameHistory = deviceStore.GetHistory();
+        gameOutcomes = deviceStore.ConvertToHistoryEnumList(gameHistory);
     }
 
     private void OnGUI()
     {
+        GUILayout.Label(gameHistory);
         GUILayout.BeginArea(new Rect(Screen.width / 2 - 100, Screen.height / 3 - 100, 200, 200));
         GUILayout.Label(gameConsole);
         GUILayout.EndArea();
     }
-
-    private System.Random rnd = new System.Random();
 
     /// <summary>  </summary>
     public void DropInChoice(RpsEnum player)
@@ -37,21 +44,58 @@ public class ExecuteChoice : MonoBehaviour
         removeGameObject(player3D);
         removeGameObject(ai3D);
 
-        //diplay next round
-        RpsEnum ai = (RpsEnum)rnd.Next(1, 4);
-        string result;
-        if (player == ai)
-            result = "tied.";
-        else if (((int)player % 3) + 1 == (int)ai)
-            result = "lost.";
-        else
-            result = "won!";
-        gameConsole = "Computer chose " + ai.ToString()
-            + System.Environment.NewLine + "You " + result;
+        //calculate this round
+        RpsEnum ai = aiObject.GetAiChoice(gameOutcomes);
+        OutcomeEnum roundOutcome = getGameOutcome(player, ai);
+        string outcomeText = handleOutcome(roundOutcome);
+        gameConsole =
+            "You chose " + player.ToString() + System.Environment.NewLine +
+            "Computer chose " + ai.ToString()
+            + outcomeText;
 
         //Drop in 3D objects
         player3D = createAt("PlayerDrop", player);
         ai3D = createAt("AiDrop", ai);
+    }
+
+    private OutcomeEnum getGameOutcome(RpsEnum player, RpsEnum ai)
+    {
+        if (player == ai)
+            return (OutcomeEnum)((int)OutcomeSimple.Tie * 3 + player);
+        else if (((int)player % 3) + 1 == (int)ai)
+            return (OutcomeEnum)((int)OutcomeSimple.Lose * 3 + player);
+        else
+            return (OutcomeEnum)((int)OutcomeSimple.Win * 3 + player);
+    }
+
+    private string handleOutcome(OutcomeEnum outcomeOfRound)
+    {
+        gameOutcomes.Add(outcomeOfRound);
+        gameHistory = deviceStore.SaveHistory(gameOutcomes);
+
+        string result;
+        switch (outcomeOfRound)
+        {
+            case OutcomeEnum.WinWithRock:
+            case OutcomeEnum.WinWithPaper:
+            case OutcomeEnum.WinWithScissors:
+                result = "won!";
+                break;
+            case OutcomeEnum.LoseWithRock:
+            case OutcomeEnum.LoseWithPaper:
+            case OutcomeEnum.LoseWithScissors:
+                result = "lost.";
+                break;
+            case OutcomeEnum.TieWithRock:
+            case OutcomeEnum.TieWithPaper:
+            case OutcomeEnum.TieWithScissors:
+                result = "tied.";
+                break;
+            case OutcomeEnum.Undetermined:
+            default:
+                return null;
+        }
+        return System.Environment.NewLine + "You " + result;
     }
 
     private void removeGameObject(Transform transformObject)
