@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Controller\Ai.cs" />
+    <Compile Include="Assets\Scripts\Controller\Referee.cs" />
     <Compile Include="Assets\Scripts\Device\Storage.cs" />
     <Compile Include="Assets\Scripts\ExecuteChoice.cs" />
     <Compile Include="Assets\Scripts\Model\OutcomeEnum.cs" />

@@ -3,6 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+//http://forum.unity3d.com/threads/98230-Security-Exception-ECall-methods-must-be-packaged-into-a-system-module.
+//#if UNIT_TEST //TODO: this requires registering UNIT_TEST somehow
+//public class Debug
+//{
+//    public static void Log(string s) { Console.WriteLine(s); }
+//    public static void LogWarning(string s) { Console.WriteLine(s); }
+//    public static void LogError(string s) { Console.WriteLine(s); }
+//}
+
+//public class MonoBehaviour
+//{
+
+//}
+//#endif
+
 public class ExecuteChoice : MonoBehaviour
 {
     /// <summary>static required so that class can be accessed from RpsButton.cs</summary>
@@ -14,6 +29,7 @@ public class ExecuteChoice : MonoBehaviour
     public Transform Scissors;
 
     private Storage deviceStore = new Storage();
+    private Referee referee = new Referee();
     private Ai aiObject = new Ai();
     private string gameConsole;
     private string gameHistory;
@@ -46,8 +62,8 @@ public class ExecuteChoice : MonoBehaviour
 
         //calculate this round
         RpsEnum ai = aiObject.GetAiChoice(gameOutcomes);
-        OutcomeEnum roundOutcome = getGameOutcome(player, ai);
-        string outcomeText = handleOutcome(roundOutcome);
+        OutcomeEnum roundOutcome = referee.GetGameOutcome(player, ai);
+        string outcomeText = referee.HandleOutcome(roundOutcome, ref gameHistory, ref gameOutcomes);
         gameConsole =
             "You chose " + player.ToString() + System.Environment.NewLine +
             "Computer chose " + ai.ToString()
@@ -56,46 +72,6 @@ public class ExecuteChoice : MonoBehaviour
         //Drop in 3D objects
         player3D = createAt("PlayerDrop", player);
         ai3D = createAt("AiDrop", ai);
-    }
-
-    private OutcomeEnum getGameOutcome(RpsEnum player, RpsEnum ai)
-    {
-        if (player == ai)
-            return (OutcomeEnum)((int)OutcomeSimple.Tie * 3 + player);
-        else if (((int)player % 3) + 1 == (int)ai)
-            return (OutcomeEnum)((int)OutcomeSimple.Lose * 3 + player);
-        else
-            return (OutcomeEnum)((int)OutcomeSimple.Win * 3 + player);
-    }
-
-    private string handleOutcome(OutcomeEnum outcomeOfRound)
-    {
-        gameOutcomes.Add(outcomeOfRound);
-        gameHistory = deviceStore.SaveHistory(gameOutcomes);
-
-        string result;
-        switch (outcomeOfRound)
-        {
-            case OutcomeEnum.WinWithRock:
-            case OutcomeEnum.WinWithPaper:
-            case OutcomeEnum.WinWithScissors:
-                result = "won!";
-                break;
-            case OutcomeEnum.LoseWithRock:
-            case OutcomeEnum.LoseWithPaper:
-            case OutcomeEnum.LoseWithScissors:
-                result = "lost.";
-                break;
-            case OutcomeEnum.TieWithRock:
-            case OutcomeEnum.TieWithPaper:
-            case OutcomeEnum.TieWithScissors:
-                result = "tied.";
-                break;
-            case OutcomeEnum.Undetermined:
-            default:
-                return null;
-        }
-        return System.Environment.NewLine + "You " + result;
     }
 
     private void removeGameObject(Transform transformObject)

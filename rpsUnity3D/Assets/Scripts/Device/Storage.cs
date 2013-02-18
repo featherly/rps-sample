@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-class Storage
+public class Storage
 {
     private const string keyHistory = "OutcomeHistory";
 
@@ -20,6 +20,9 @@ class Storage
 
     public List<OutcomeEnum> ConvertToHistoryEnumList(string asString)
     {
+        if (string.IsNullOrEmpty(asString))
+            return null;
+
         List<OutcomeEnum> outcomeHistory = new List<OutcomeEnum>();
         foreach (var character in asString)
         {
@@ -31,7 +34,7 @@ class Storage
     /// <summary> Saves the Win/Lose/Tie history </summary>
     /// <param name="outcomeHistory"></param>
     /// <returns>outcomeHistory as a string value</returns>
-    public string SaveHistory(List<OutcomeEnum> outcomeHistory)
+    public string SaveHistory(List<OutcomeEnum> outcomeHistory, bool isTest = false)
     {
         string gameHistory = new string(
             outcomeHistory.Reverse<OutcomeEnum>().Take(10)
@@ -39,7 +42,10 @@ class Storage
             .Reverse()
             .ToArray()
             );
-        SaveHistory(gameHistory);
+
+        if (isTest == false)
+            SaveHistory(gameHistory);
+
         return gameHistory;
     }
     public void SaveHistory(string outcomeHistory)

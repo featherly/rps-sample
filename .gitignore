@@ -88,6 +88,9 @@ csx
 # Windows Store app package directory
 AppPackages/
 
+# MSTest
+rpsUnity3D/*.vsmdi
+
 # Others
 [Bb]in
 [Oo]bj
@@ -99,6 +102,7 @@ ClientBin
 [Ss]tyle[Cc]op.*
 ~$*
 *.dbmdl
+
 Generated_Code #added for RIA/Silverlight projects
 
 # Backup & report files from converting an old project file to a newer
@@ -117,7 +121,6 @@ rpsUnity3D/Library/*
 rpsUnity3D/Build/*
 rpsUnity3D/ProjectSettings/*
 rpsUnity3D/rpsUnity3D_Data/*
-rpsUnity3D/*.sln
 rpsUnity3D/*.exe
 rpsUnity3D/*.apk
 #Un-ignore these specific files

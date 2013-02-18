@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-class Ai
+public class Ai
 {
     public static Ai Instance = new Ai();
 
