@@ -33,14 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="1">
-      <HintPath>.\C:/Apps/MediaCreate/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="2">
-      <HintPath>.\C:/Apps/MediaCreate/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">

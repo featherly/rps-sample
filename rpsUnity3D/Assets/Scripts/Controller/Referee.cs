@@ -28,10 +28,13 @@ public class Referee
         return result;
     }
 
-    public string HandleOutcome(OutcomeEnum outcomeOfRound, ref string gameHistory, ref List<OutcomeEnum> gameOutcomes)
+    public string HandleOutcome(OutcomeEnum outcomeOfRound, ref List<OutcomeEnum> gameOutcomes, out string gameHistoryUpdate)
     {
+        if (gameOutcomes == null)
+            gameOutcomes = new List<OutcomeEnum>();
+
         gameOutcomes.Add(outcomeOfRound);
-        gameHistory = deviceStore.SaveHistory(gameOutcomes, IsTest);
+        gameHistoryUpdate = deviceStore.SaveHistory(gameOutcomes, IsTest);
 
         string result;
         switch (outcomeOfRound)

@@ -63,7 +63,11 @@ public class ExecuteChoice : MonoBehaviour
         //calculate this round
         RpsEnum ai = aiObject.GetAiChoice(gameOutcomes);
         OutcomeEnum roundOutcome = referee.GetGameOutcome(player, ai);
-        string outcomeText = referee.HandleOutcome(roundOutcome, ref gameHistory, ref gameOutcomes);
+        string gameHistoryUpdate;
+        string outcomeText = referee.HandleOutcome(roundOutcome, ref gameOutcomes, out gameHistoryUpdate);
+
+        //Update UI elements
+        gameHistory = gameHistoryUpdate;
         gameConsole =
             "You chose " + player.ToString() + System.Environment.NewLine +
             "Computer chose " + ai.ToString()

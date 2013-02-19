@@ -100,21 +100,45 @@ namespace UnitTests
         /// <summary></summary>
         [TestMethod()]
         [DeploymentItem("Assembly-CSharp.dll")]
-        public void HandleOutcomeTestWin()
+        public void HandleOutcomeTestWinNoHistory()
         {
             //initialize
             Referee target = new Referee() { IsTest = true };
             OutcomeEnum outcomeOfRound = OutcomeEnum.WinWithRock;
-            string gameHistory = null;
-            List<OutcomeEnum> gameOutcomes = new List<OutcomeEnum>();
+            List<OutcomeEnum> gameOutcomes = null;
+            string expectedGameHistoryUpdate = "R";
+            string actualGameHistoryUpdate;
             string expected = System.Environment.NewLine + "You " + Referee_Accessor.won;
             string actual;
 
             //setup
-            actual = target.HandleOutcome(outcomeOfRound, ref gameHistory, ref gameOutcomes);
+            actual = target.HandleOutcome(outcomeOfRound, ref gameOutcomes, out actualGameHistoryUpdate);
 
             //assert
             Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expectedGameHistoryUpdate, actualGameHistoryUpdate);
+        }
+
+        /// <summary></summary>
+        [TestMethod()]
+        [DeploymentItem("Assembly-CSharp.dll")]
+        public void HandleOutcomeTestWinWithHistory()
+        {
+            //initialize
+            Referee target = new Referee() { IsTest = true };
+            OutcomeEnum outcomeOfRound = OutcomeEnum.WinWithRock;
+            List<OutcomeEnum> gameOutcomes = new List<OutcomeEnum>();
+            string expectedGameHistoryUpdate = "R";
+            string actualGameHistoryUpdate;
+            string expected = System.Environment.NewLine + "You " + Referee_Accessor.won;
+            string actual;
+
+            //setup
+            actual = target.HandleOutcome(outcomeOfRound, ref gameOutcomes, out actualGameHistoryUpdate);
+
+            //assert
+            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expectedGameHistoryUpdate, actualGameHistoryUpdate);
         }
     }
 }
