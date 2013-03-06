@@ -11,6 +11,7 @@ public class RpsButton : MonoBehaviour
 
     private void OnGUI()
     {
+		GUI.skin.button.fontSize = (Screen.height+Screen.width)/40;
         if (button == new Rect(0, 0, 100, 100))
             button = createButton(choice);
         if (GUI.Button(button, choice.ToString()))

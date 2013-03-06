@@ -36,6 +36,9 @@ public class ExecuteChoice : MonoBehaviour
     private Transform player3D;
     private Transform ai3D;
     private List<OutcomeEnum> gameOutcomes = new List<OutcomeEnum>();
+	
+	private bool firstRun = true;
+	private int lblWidth, lblHeight, lblLeft, lblTop;
 
     // Use this for initialization
     void Start()
@@ -43,13 +46,32 @@ public class ExecuteChoice : MonoBehaviour
         Instance = this;
         gameHistory = deviceStore.GetHistory();
         gameOutcomes = deviceStore.ConvertToHistoryEnumList(gameHistory);
+		
+		//If this code could access the default GUI.skin we could do the "firstRun" here
+		//Globals.myGuiSkin = //GameObject.FindWithTag("GUI") as GUISkin; // 
+			//ScriptableObject.CreateInstance(typeof(GUISkin)) as GUISkin;
     }
 
     private void OnGUI()
     {
-        GUILayout.Label(gameHistory);
-        GUILayout.BeginArea(new Rect(Screen.width / 2 - 100, Screen.height / 3 - 100, 200, 200));
-        GUILayout.Label(gameConsole);
+		if (firstRun)
+		{
+			GUIStyle myStyl = new GUIStyle();
+			myStyl.normal.textColor = GUI.skin.label.normal.textColor;
+			myStyl.fontSize = (Screen.height+Screen.width)/40;
+			myStyl.alignment = TextAnchor.MiddleCenter;
+			Globals.FontSized = myStyl;
+			
+			lblWidth = Screen.width / 2;
+			lblHeight = Screen.height / 2;
+			lblLeft = Screen.width / 2 - lblWidth / 2;
+			lblTop = Screen.height / 2 - lblHeight / 2;
+			firstRun = false;
+		}
+		
+        GUILayout.Label(gameHistory, Globals.FontSized);
+        GUILayout.BeginArea(new Rect(lblLeft, lblTop, lblWidth, lblHeight));
+        GUILayout.Label(gameConsole, Globals.FontSized);
         GUILayout.EndArea();
     }
 
